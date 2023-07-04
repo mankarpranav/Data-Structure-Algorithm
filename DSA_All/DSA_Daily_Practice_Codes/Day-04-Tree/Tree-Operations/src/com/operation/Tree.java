@@ -16,10 +16,8 @@ public class Tree {
 
 	public boolean insert(int data) {
 
-		// if root is null?
-		// if NOT then check for duplication
-		// if NOT then check whether data is less than data in parent node go to if part
-		// if NOT then go to else part
+		// If the root is null, create a new node and assign it as the root
+		// Otherwise, traverse the tree to find the appropriate position for the new node
 
 		Node newNode = new Node(data);
 
@@ -32,7 +30,7 @@ public class Tree {
 
 		while (true) {
 
-			// checking duplication
+			// Check for duplication, if found, return false
 
 			if (temp.getData() == data) {
 				return false;
@@ -62,7 +60,7 @@ public class Tree {
 	}
 
 	public int getMax() {
-		// max will in the right corner as it is BST
+		// Find the maximum value by traversing to the rightmost node
 
 		Node temp = root;
 
@@ -74,6 +72,8 @@ public class Tree {
 	}
 
 	public int getMin() {
+		// Find the minimum value by traversing to the leftmost node
+
 		Node temp = root;
 
 		while (temp.getLeft() != null) {
@@ -93,6 +93,8 @@ public class Tree {
 		if (data == temp.getData()) {
 			return true;
 		}
+
+		// Traverse the tree to search for the given data
 
 		if (data < temp.getData()) {
 			temp = temp.getLeft();
