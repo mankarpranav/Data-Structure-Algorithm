@@ -6,22 +6,23 @@ public class Tree {
 
 	private Node root;
 
-	public Node getRoot() {
-		return root;
-	}
-
 	public Tree() {
 		this.root = null;
 	}
 
-	public boolean insert(int data) {
+	public Node getRoot() {
+		// Returns the root node of the tree.
+		return root;
+	}
 
-		// If the root is null, create a new node and assign it as the root
-		// Otherwise, traverse the tree to find the appropriate position for the new node
+	public boolean insert(int data) {
+		// Inserts a new node with the given data into the tree.
+		// Returns true if insertion is successful, false if data is already present.
 
 		Node newNode = new Node(data);
 
 		if (root == null) {
+			// If the root is null, create a new node and assign it as the root
 			root = newNode;
 			return true;
 		}
@@ -31,7 +32,6 @@ public class Tree {
 		while (true) {
 
 			// Check for duplication, if found, return false
-
 			if (temp.getData() == data) {
 				return false;
 			}
@@ -39,6 +39,7 @@ public class Tree {
 			if (data < temp.getData()) {
 
 				if (temp.getLeft() == null) {
+					// If the left child is null, insert the new node
 					temp.setLeft(newNode);
 					return true;
 				}
@@ -48,6 +49,7 @@ public class Tree {
 			} else {
 
 				if (temp.getRight() == null) {
+					// If the right child is null, insert the new node
 					temp.setRight(newNode);
 					return true;
 				}
@@ -56,11 +58,10 @@ public class Tree {
 
 			}
 		}
-
 	}
 
 	public int getMax() {
-		// Find the maximum value by traversing to the rightmost node
+		// Finds the maximum value in the tree by traversing to the rightmost node.
 
 		Node temp = root;
 
@@ -72,7 +73,7 @@ public class Tree {
 	}
 
 	public int getMin() {
-		// Find the minimum value by traversing to the leftmost node
+		// Finds the minimum value in the tree by traversing to the leftmost node.
 
 		Node temp = root;
 
@@ -84,24 +85,26 @@ public class Tree {
 	}
 
 	public boolean search(int data) {
+		// Searches for the given data in the tree.
+		// Returns true if the data is found, false otherwise.
 
 		if (root == null) {
+			// If the tree is empty, return false
 			return false;
 		}
 
 		Node temp = root;
 		if (data == temp.getData()) {
+			// If the data is found at the root, return true
 			return true;
 		}
 
 		// Traverse the tree to search for the given data
-
 		if (data < temp.getData()) {
 			temp = temp.getLeft();
 		} else {
 			temp = temp.getRight();
 		}
 		return false;
-
 	}
 }
