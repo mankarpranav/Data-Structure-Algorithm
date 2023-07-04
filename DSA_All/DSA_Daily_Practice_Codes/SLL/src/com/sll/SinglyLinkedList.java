@@ -2,8 +2,6 @@ package com.sll;
 
 public class SinglyLinkedList {
 
-	// Edge Cases Not Handled..
-
 	private Node head;
 
 	public SinglyLinkedList() {
@@ -15,6 +13,7 @@ public class SinglyLinkedList {
 	}
 
 	public void display() {
+		// Displays the elements of the singly linked list.
 
 		Node temp = head;
 
@@ -32,29 +31,29 @@ public class SinglyLinkedList {
 
 			temp = temp.getNext();
 		}
-
 	}
 
-	public void InsertAtBeg(int data) {
+	public void insertAtBeg(int data) {
+		// Inserts a new node with the given data at the beginning of the singly linked list.
 
 		Node newNode = new Node(data);
 
 		if (head == null) {
-			head = newNode;
+			head = newNode; // If the list is empty, the new node becomes the head of the list.
 			return;
 		}
 
 		newNode.setNext(head);
 		head = newNode;
-		return;
-
 	}
 
-	public void InsertAtEnd(int data) {
+	public void insertAtEnd(int data) {
+		// Inserts a new node with the given data at the end of the singly linked list.
+
 		Node newNode = new Node(data);
 
 		if (head == null) {
-			head = newNode;
+			head = newNode; // If the list is empty, the new node becomes the head of the list.
 			return;
 		}
 
@@ -64,91 +63,145 @@ public class SinglyLinkedList {
 		}
 
 		temp.setNext(newNode);
-		return;
-
 	}
 
-	public void InsertAtPos(int data, int pos) {
+	public void insertAtPos(int data, int pos) {
+		// Inserts a new node with the given data at the specified position in the singly linked list.
 
 		Node newNode = new Node(data);
 
 		if (head == null) {
-			head = newNode;
+			head = newNode; // If the list is empty, the new node becomes the head of the list.
 			return;
 		}
 
 		Node temp = head;
 		for (int i = 0; i < pos - 1; i++) {
+			if (temp == null) {
+				System.out.println("Invalid position");
+				return;
+			}
 			temp = temp.getNext();
 		}
 
 		newNode.setNext(temp.getNext());
 		temp.setNext(newNode);
-		return;
 	}
 
 	public void deleteAtBeg() {
+		// Deletes the first node from the singly linked list.
+
+		if (head == null) {
+			System.out.println("List is empty");
+			return;
+		}
 
 		head = head.getNext();
-
 	}
 
 	public void deleteAtEnd() {
+		// Deletes the last node from the singly linked list.
+
+		if (head == null) {
+			System.out.println("List is empty");
+			return;
+		}
+
 		Node temp = head;
-		while (temp.getNext().getNext() != null) {
+		Node prev = null;
+
+		while (temp.getNext() != null) {
+			prev = temp;
 			temp = temp.getNext();
 		}
-		temp.setNext(null);
+
+		if (prev != null) {
+			prev.setNext(null);
+		} else {
+			head = null;
+		}
 	}
 
 	public void deleteAtPos(int pos) {
-		Node temp = head;
+		// Deletes the node at the specified position from the singly linked list.
 
-		for (int i = 1; i < pos - 1; i++) {
-			System.out.println("count: " + i);
+		if (head == null) {
+			System.out.println("List is empty");
+			return;
+		}
+
+		Node temp = head;
+		Node prev = null;
+
+		for (int i = 1; i < pos; i++) {
+			if (temp == null) {
+				System.out.println("Invalid position");
+				return;
+			}
+			prev = temp;
 			temp = temp.getNext();
 		}
 
-		Node del = temp.getNext();
-		temp.setNext(del.getNext());
-
+		if (prev != null) {
+			prev.setNext(temp.getNext());
+		} else {
+			head = temp.getNext();
+		}
 	}
 
 	public void deleteByValue(int value) {
-		Node prev = head;
-		Node del = head.getNext();
-		while (del.getData() != value) {
-			prev = del;
-			del = del.getNext();
+		// Deletes the node with the given value from the singly linked list.
+
+		if (head == null) {
+			System.out.println("List is empty");
+			return;
 		}
 
-		prev.setNext(del.getNext());
+		Node temp = head;
+		Node prev = null;
+
+		while (temp != null) {
+			if (temp.getData() == value) {
+				if (prev != null) {
+					prev.setNext(temp.getNext());
+				} else {
+					head = temp.getNext();
+				}
+				return;
+			}
+			prev = temp;
+			temp = temp.getNext();
+		}
+
+		System.out.println("Value not found in the list");
 	}
 
 	public int count() {
-		int cnt = 0;
-		Node temp = head;
-		while (temp != null) {
+		// Returns the number of nodes in the singly linked list.
 
+		int count = 0;
+		Node temp = head;
+
+		while (temp != null) {
+			count++;
 			temp = temp.getNext();
-			cnt++;
 		}
 
-		return cnt;
+		return count;
 	}
 
 	public void reverseList() {
-		// reversing data
-		// Code Contains Potential Issues
+		// Reverses the elements of the singly linked list by reversing the data in the nodes.
+
+		int count = count();
 		Node n1 = head;
 		Node n2 = head;
 		int x = 0;
-		int cnt = count();
 
-		while (x < (cnt / 2)) {
-
+		while (x < (count / 2)) {
 			int num = 1;
-			while (num < cnt - x) {
+
+			while (num < count - x) {
 				n2 = n2.getNext();
 				num++;
 			}
@@ -157,35 +210,32 @@ public class SinglyLinkedList {
 			n1.setData(n2.getData());
 			n2.setData(var);
 
-			head = n2;
 			n1 = n1.getNext();
+			n2 = head;
 
 			x++;
 		}
-
 	}
 
 	public void reverseInplace() {
-		// n1,n2,n3
-		// n1 will point to first node
-		// n2 will point to second node
-		// n3 will point to third node
-		// n2 setNext n1
-		// increment n1 n2 n3
+		// Reverses the singly linked list in-place by reversing the links between the nodes.
 
-		Node n1 = head;
-		Node n2 = head;
-		Node n3 = head;
-
-		while (n2 != null) {
-			n3 = n2.getNext();
-			n2.setNext(n1);
-			n1 = n2;
-			n2 = n3;
+		if (head == null) {
+			System.out.println("List is empty");
+			return;
 		}
 
-		head.setNext(null);
-		head = n1;
-	}
+		Node prev = null;
+		Node current = head;
+		Node next = null;
 
+		while (current != null) {
+			next = current.getNext();
+			current.setNext(prev);
+			prev = current;
+			current = next;
+		}
+
+		head = prev;
+	}
 }
