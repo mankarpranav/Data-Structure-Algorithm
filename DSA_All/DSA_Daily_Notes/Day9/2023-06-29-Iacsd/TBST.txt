@@ -1,0 +1,23 @@
+Insert to left
+1. Parent will become inorder successor of new node
+2. parent's inorder predecessor will become inorder predecessor 
+   of new node
+3. new node will become left child of parent 
+
+
+Insert to right
+1. Parent will become inorder predecessor of new node
+2. Parent's inorder successor will become inorder successor of 
+   new node
+3. new node will become right child of parent 
+
+
+PostOrder
+
+1. while temp has left child and left sub tree is not alredy visited
+   shift temp to it's left
+   
+
+
+
+
